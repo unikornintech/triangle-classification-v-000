@@ -13,7 +13,27 @@ class Triangle
   end 
   
   def kind 
+    if @sides.any? {|side| side <= 0 or side <= 0.0}
+      raise TriangleError
+    end 
     
+    sum = @sides.inject {|sum, n| sum + n}
+    if @sides.any? {|s| s>= sum -s}
+      raise TriangleError
+    end 
+    
+    case @sides.uniq.size 
+    when 1 
+      kind = :equilateral
+    
+    when 2 
+      kind = :isosceles
+      
+    else 
+      kind = :scalene
+      
+    end 
+    kind 
     
   end 
   
